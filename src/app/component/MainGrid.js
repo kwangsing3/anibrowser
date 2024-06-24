@@ -1,57 +1,26 @@
-import styles from '@/app/css/page.module.css'
+import styles from '../css/page.module.css'
+import Card from './Card';
+import fs from 'fs';
 
-export default function MainGrid() {
+export default async function MainGrid() {
+    const bty = await fs.readFileSync('src/sample.json');
+    const data = JSON.parse(bty.toString());
+    const series = []
+    for (const key in data) {
+        series.push(data[key])
+    }
+    const res = series.map(da =>
+        <Card className={styles.center}
+            key={da.id}
+            img={da.poster_path}
+            title={da.name}
+        />
+    );
+
+
     return (
         <div className={styles.grid}>
-            <a
-                href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                className={styles.card}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <h2>
-                    Docs <span>-&gt;</span>
-                </h2>
-                <p>Find in-depth information about Next.js features and API.</p>
-            </a>
-
-            <a
-                href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                className={styles.card}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <h2>
-                    Learn <span>-&gt;</span>
-                </h2>
-                <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-            </a>
-
-            <a
-                href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                className={styles.card}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <h2>
-                    Templates <span>-&gt;</span>
-                </h2>
-                <p>Explore starter templates for Next.js.</p>
-            </a>
-
-            <a
-                href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                className={styles.card}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <h2>
-                    Deploy <span>-&gt;</span>
-                </h2>
-                <p>
-                    Instantly deploy your Next.js site to a shareable URL with Vercel.
-                </p>
-            </a>
+            {res}
         </div>
     );
 }

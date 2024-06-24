@@ -1,5 +1,5 @@
-import getLatestTVFunc from "./tmdb/getLatestTV.func.js"
+import getDiscoverfunc from "./tmdb/getDiscover.func.js"
 
-(async ()=>{
-      await getLatestTVFunc();  
+(async () => {
+      await getDiscoverfunc('210024');
 })()

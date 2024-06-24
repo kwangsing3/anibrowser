@@ -47,16 +47,28 @@
 }
 
 .card {
-  padding: 1rem 1.2rem;
+  margin: 1em;
   border-radius: var(--border-radius);
-  background: rgba(var(--card-rgb), 0);
-  border: 1px solid rgba(var(--card-border-rgb), 0);
+  background: rgb(171, 233, 171);
+  border: 1px solid rgba(rgb(124, 209, 224), 140);
   transition: background 200ms, border 200ms;
+  display: grid;
+  grid-template-rows: auto 3fr;
+  grid-template-columns: auto;
+}
+
+.card li {
+  padding-left: 5%;
+  transition: transform 200ms;
+}
+
+.card div {
+  padding: 1em;
+  display: inline-block;
 }
 
 .card span {
   display: inline-block;
-  transition: transform 200ms;
 }
 
 .card h2 {
@@ -73,6 +85,8 @@
   text-wrap: balance;
 }
 
+
+
 .center {
   display: flex;
   justify-content: center;
@@ -80,6 +94,7 @@
   position: relative;
   padding: 4rem 0;
   border: solid;
+  width: 100%;
 }
 
 
