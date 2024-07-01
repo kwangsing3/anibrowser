@@ -2,8 +2,9 @@ import axios from 'axios'
 import GetSeason from './getSeason.func.js';
 import fs from 'fs';
 import path from 'path';
+import getTokenFunc from './getToken.func.js';
+import GetGenre from './getTVGenre.func.js';
 
-const TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NWU0NTAwMjU0ZDM4ODExNDJmZDk3NmE4ZGNjZDE5YyIsIm5iZiI6MTcxOTA0OTAzNC42MjMzNTcsInN1YiI6IjYxMjU0NDQ4Mjk3MzM4MDAyNTQ1OTUwOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.cTFn4-G6OtChXR0pVo2ODoVgIuE2Q-TreDw-pUKDQaY';
 const URL = `https://api.themoviedb.org/3/discover/tv?
 include_adult=true
 &include_null_first_air_dates=false
@@ -21,8 +22,8 @@ include_adult=true
  * @property {String} first_air_date
  * @property {String} poster_path
  * @property {String} backdrop_path
+ * @property {Array<Number>} genre_ids
  */
-
 
 /**
  * @typedef {Object} resDiscover
@@ -32,24 +33,44 @@ include_adult=true
  * @property {Number} total_results
  */
 
-const res = {};
+/**
+ * @typedef {Object} Database
+ * @property {{id: number, name: string}[]} genre_ids 
+ * @property {{[key:string]:TVDetails}} data
+ */
+
 
 /**
- * 
+ * @type {Database}
+ */
+const res = {
+    data:{},
+    genre_ids:[]
+};
+
+
+
+/**
+ * 根據關鍵字(id)獲取相關的影集內容。
  * @param {String} keyword_id 
  */
 export default async function GetDiscover(keyword_id) {
+    // Fill Genres
+    res.genre_ids = (await GetGenre());
+
+
+    const TOKEN = getTokenFunc;
     /**
      * @type {resDiscover}
      */
     const raw = (await axios.get(URL + keyword_id, {
         headers: {
-            'Authorization': `Bearer ${TOKEN}`
+            'Authorization': `${TOKEN}`
         }
     }))['data'];
     for (const key of raw.results) {
         const seasons = await GetSeason(key.id, TOKEN);
-        res[key.id] = {
+        res.data[key.id] = {
             id: key.id,
             original_name: key.original_name,
             name: key.name,
@@ -58,7 +79,8 @@ export default async function GetDiscover(keyword_id) {
             first_air_date: key.first_air_date,
             poster_path: key.poster_path,
             backdrop_path: key.backdrop_path,
-            seasons: seasons
+            seasons: seasons,
+            genre_ids:key.genre_ids
         }
     }
     const pat = path.join(path.resolve(), 'src', 'sample.json');

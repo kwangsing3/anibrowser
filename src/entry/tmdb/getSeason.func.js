@@ -13,7 +13,7 @@ export default async function GetSeason(series_id, TOKEN) {
      */
     const raw = (await axios.get(`https://api.themoviedb.org/3/tv/${series_id}?language=zh-TW`, {
         headers: {
-            'Authorization': `Bearer ${TOKEN}`
+            'Authorization': `${TOKEN}`
         }
     }))['data'];
     return raw.seasons;

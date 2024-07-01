@@ -53,18 +53,18 @@
   border: 1px solid rgba(rgb(124, 209, 224), 140);
   transition: background 200ms, border 200ms;
   display: grid;
-  grid-template-rows: auto 3fr;
+  grid-template-rows: auto 3fr 0.5fr;
   grid-template-columns: auto;
 }
 
 .card li {
-  padding-left: 5%;
   transition: transform 200ms;
 }
 
 .card div {
-  padding: 1em;
-  display: inline-block;
+  padding: 3%;
+  display: inline-flex;
+  justify-content: space-evenly;
 }
 
 .card span {
@@ -85,6 +85,9 @@
   text-wrap: balance;
 }
 
+.cardImage {
+  display: none;
+}
 
 
 .center {

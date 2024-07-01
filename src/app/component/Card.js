@@ -16,12 +16,12 @@ export default function Card({ img, title }) {
         >
             <div>
                 <h3>
-                    【{title}】
+                    【{"----"}】
                 </h3>
             </div>
             <div>
-                <Image
-                    src={`https://image.tmdb.org/t/p/w500${img}`}
+                <Image className={styles.cardImage}
+                    src={`https://img.freepik.com/free-photo/abstract-surface-textures-white-concrete-stone-wall_74190-8189.jpg`}
                     alt="poster"
                     width={100}
                     height={140}
