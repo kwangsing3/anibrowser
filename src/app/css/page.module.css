@@ -49,12 +49,18 @@
 .card {
   margin: 1em;
   border-radius: var(--border-radius);
-  background: rgb(171, 233, 171);
+  background: rgb(140, 141, 140);
   border: 1px solid rgba(rgb(124, 209, 224), 140);
   transition: background 200ms, border 200ms;
   display: grid;
   grid-template-rows: auto 3fr 0.5fr;
-  grid-template-columns: auto;
+  grid-template-columns: 1fr;
+}
+
+.card .cardcontent {
+  display: grid;
+  grid-template-columns: 0.2fr 0.6fr;
+  justify-items: start;
 }
 
 .card li {
@@ -85,9 +91,9 @@
   text-wrap: balance;
 }
 
-.cardImage {
+/* .cardImage {
   display: none;
-}
+} */
 
 
 .center {

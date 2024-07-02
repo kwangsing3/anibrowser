@@ -44,8 +44,8 @@ include_adult=true
  * @type {Database}
  */
 const res = {
-    data:{},
-    genre_ids:[]
+    data: {},
+    genre_ids: []
 };
 
 
@@ -55,12 +55,14 @@ const res = {
  * @param {String} keyword_id 
  */
 export default async function GetDiscover(keyword_id) {
+
+    const TOKEN = getTokenFunc;
+
     // Fill Genres
     res.genre_ids = (await GetGenre());
 
-
-    const TOKEN = getTokenFunc;
     /**
+     * Fill TVseries
      * @type {resDiscover}
      */
     const raw = (await axios.get(URL + keyword_id, {
@@ -80,7 +82,7 @@ export default async function GetDiscover(keyword_id) {
             poster_path: key.poster_path,
             backdrop_path: key.backdrop_path,
             seasons: seasons,
-            genre_ids:key.genre_ids
+            genre_ids: key.genre_ids
         }
     }
     const pat = path.join(path.resolve(), 'src', 'sample.json');

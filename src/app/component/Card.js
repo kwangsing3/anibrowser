@@ -7,7 +7,10 @@ import styles from '../css/page.module.css'
  * @param {string} title 
  * @returns 
  */
-export default function Card({ img, title }) {
+export default function Card({ img, title, tag }) {
+    let genre = tag.map((key) =>
+        <li key={key.id}>{key.name}</li>
+    )
     return (
         <a
             className={styles.card}
@@ -19,18 +22,16 @@ export default function Card({ img, title }) {
                     【{"----"}】
                 </h3>
             </div>
-            <div>
+            <div className={styles.cardcontent}>
                 <Image className={styles.cardImage}
-                    src={`https://img.freepik.com/free-photo/abstract-surface-textures-white-concrete-stone-wall_74190-8189.jpg`}
+                    src={'https://img.freepik.com/free-photo/abstract-surface-textures-white-concrete-stone-wall_74190-8189.jpg'}
                     alt="poster"
                     width={100}
                     height={140}
                     loading='lazy'
                 />
                 <span>
-                    <li>genre1</li>
-                    <li>genre2</li>
-                    <li>genre3</li>
+                    {genre}
                 </span>
             </div>
         </a>
