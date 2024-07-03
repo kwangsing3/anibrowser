@@ -8,8 +8,9 @@ import styles from '../css/page.module.css'
  * @returns 
  */
 export default function Card({ img, title, tag }) {
+    let c = 0;
     let genre = tag.map((key) =>
-        <li key={key.id}>{key.name}</li>
+        <li key={c++}>{key.name}</li>
     )
     return (
         <a

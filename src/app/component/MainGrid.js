@@ -3,13 +3,8 @@ import Card from './Card';
 import fs from 'fs';
 
 export default async function MainGrid() {
-    const bty = await fs.readFileSync('src/sample.json');
-    const strJSON = JSON.parse(bty.toString());
+    const t = Classificate();
     const series = [];
-    const data = strJSON['data'];
-    for (const key in data) {
-        series.push(data[key])
-    }
     const res = series.map(da => {
         //genre_ids  (filted specific tag)
         const t = da.genre_ids.filter(ele => ele != 16);
@@ -31,4 +26,22 @@ export default async function MainGrid() {
             {res}
         </div>
     );
+}
+
+
+async function Classificate() {
+    const bty = await fs.readFileSync('src/sample.json');
+    const mainJSON = JSON.parse(bty.toString());
+    const series = mainJSON['data'];
+    const date = {};
+    for (const key in series) {
+        const dat = new Date(series[key]['first_air_date']);
+        const y = dat.getFullYear();
+        const m = dat.getMonth() + 1;
+        date[`${y}-${m}`] = date[`${y}-${m}`] === undefined ? [] : date[`${y}-${m}`];
+        date[`${y}-${m}`].push(key);
+    }
+    // 依照日期分類
+
+    console.log();
 }
