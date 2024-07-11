@@ -5,9 +5,11 @@ import styles from '../css/page.module.css'
  * 
  * @param {string} img 
  * @param {string} title 
+ * @param {Array<string>} tag
+ * @param {string} firdate
  * @returns 
  */
-export default function Card({ img, title, tag }) {
+export default function Card({ img, title, tag, firdate }) {
     let c = 0;
     let genre = tag.map((key) =>
         <li key={c++}>{key.name}</li>
@@ -34,6 +36,11 @@ export default function Card({ img, title, tag }) {
                 <span>
                     {genre}
                 </span>
+            </div>
+            <div>
+                <h3>
+                    {firdate}
+                </h3>
             </div>
         </a>
     )

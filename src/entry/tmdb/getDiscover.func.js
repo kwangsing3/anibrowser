@@ -4,6 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import getTokenFunc from './getToken.func.js';
 import GetGenre from './getTVGenre.func.js';
+import '../../types/type.js'
+
 
 const URL = `https://api.themoviedb.org/3/discover/tv?
 include_adult=true
@@ -12,18 +14,6 @@ include_adult=true
 &sort_by=popularity.desc
 &with_keywords=`;
 const TOKEN = getTokenFunc;
-/**
- * @typedef {Object} TVDetails
- * @property {Number} id
- * @property {String} original_name
- * @property {String} name
- * @property {Boolean} adult
- * @property {String} overview
- * @property {String} first_air_date
- * @property {String} poster_path
- * @property {String} backdrop_path
- * @property {Array<Number>} genre_ids
- */
 
 /**
  * @typedef {Object} resDiscover
@@ -38,7 +28,6 @@ const TOKEN = getTokenFunc;
  * @property {{id: number, name: string}[]} genre_ids 
  * @property {{[key:string]:TVDetails}} data
  */
-
 
 /**
  * @type {Database}

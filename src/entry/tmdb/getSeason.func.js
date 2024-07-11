@@ -29,15 +29,3 @@ export default async function GetSeason(series_id, TOKEN) {
  * @property {String} episode_count
  */
 
-/** 
- * @typedef TVDetail
- * @property {String} id
- * @property {String} name
- * @property {String} original_name
- * @property {String} overview
- * @property {Array<Season>} seasons
- * @property {String} first_air_date
- * @property {String} adult
- * @property {String} adult
- * @property {String} adult
- */
