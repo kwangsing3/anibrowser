@@ -3,10 +3,11 @@ import styles from '../css/page.module.css'
 import Button from './Button';
 import Card from './Card';
 import { useState } from 'react';
-
+import CollapsibleButtons from './CollapsibleButtons';
+let year = '2024';
+let month = '07';
 export default function MainGrid({ data }) {
-    let year = '2024';
-    let month = '07';
+
     const [cards, setArray] = useState([]);
     function handleClick() {
         const tmp = [];
@@ -37,55 +38,48 @@ export default function MainGrid({ data }) {
         });
         setArray(res);
     }
-    return (
-        <div style={{ width: "100%" }}>
-            <div >
-                <Button
-                    onClick={() => { year = '2017'; month = undefined; handleClick(); }}
-                    content="2017"
-                />
-                <Button
-                    onClick={() => { year = '2018'; month = undefined; handleClick(); }}
-                    content="2018"
-                />
-                <Button
-                    onClick={() => { year = '2019'; month = undefined; handleClick(); }}
-                    content="2019"
-                />
-                <Button
-                    onClick={() => { year = '2020'; month = undefined; handleClick(); }}
-                    content="2020"
-                />
-                <Button
-                    onClick={() => { year = '2021'; month = undefined; handleClick(); }}
-                    content="2021"
-                />
-                <Button
-                    onClick={() => { year = '2022'; month = undefined; handleClick(); }}
-                    content="2022"
-                />
-                <Button
-                    onClick={() => { year = '2023'; month = undefined; handleClick(); }}
-                    content="2023"
-                />
-                <Button
-                    onClick={() => { year = '2024'; month = undefined; handleClick(); }}
-                    content="2024"
-                />
-                <Button
-                    onClick={() => { year = '2024'; month = '04'; handleClick(); }}
-                    content="2024-04" />
-                <Button
-                    onClick={() => { year = '2024'; month = '07'; handleClick(); }}
-                    content="2024-07"
-                />
 
-            </div>
-            <div className={styles.grid}>
-                {cards}
-            </div>
-        </div >
+    const time_list_btns = getYearButton(data['data'], handleClick);
+    return (
+        // <div style={{ width: "100%" }}>
+        //     <div className={"button-container"}>
+        //         {time_list_btns}
+        //     </div>
+        //     <div className={styles.grid}>
+        //         {cards}
+        //     </div>
+
+        // </div >
+        <CollapsibleButtons />
     );
 }
 
 
+function getYearButton(series, oncallback) {
+    let odst_dat = new Date();
+    for (const key in series) {
+        const i = series[key]
+        const ib = new Date(i.first_air_date);
+        if (ib instanceof Date && !isNaN(ib)) //is invaild Date?
+            odst_dat = odst_dat < ib ? odst_dat : ib;
+    }
+    let t_d = odst_dat;
+    const cur_d = new Date();
+    let time_list = [];
+    while (cur_d > t_d) {
+        time_list.push(t_d.getFullYear());
+        t_d.setFullYear(t_d.getFullYear() + 1)
+    }
+    time_list = [...new Set(time_list)].sort((a, b) => { return a < b ? 1 : -1 });
+    // Generate Years Buttons
+    let counter = 0;
+    const res = time_list.map((key) => {
+        return (<Button
+            key={counter++}
+            onClick={() => { year = key; month = undefined; oncallback(); }}
+            content={`${key}`}
+            className={styles.button}
+        />);
+    })
+    return res
+}

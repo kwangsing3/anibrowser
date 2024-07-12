@@ -1,10 +1,10 @@
-import styles from '../css/page.module.css'
 
-export default function Button({ onClick, content }) {
+export default function Button({ onClick, content, className, id }) {
     return (
         <button
             onClick={onClick}
-            className={styles.button}
+            className={className}
+            id={id}
         >
             {content}
         </button>

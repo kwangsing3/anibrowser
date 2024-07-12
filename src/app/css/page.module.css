@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 5rem;
   min-height: 100vh;
 }
 
@@ -136,12 +136,34 @@
 }
 
 .button {
-  padding: 10px;
+  padding: 3px 5px;
   background-color: rgb(118 103 165);
-  margin: 10px;
   border-radius: 6px;
 }
 
+.buttonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.3s ease;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+.collapsed {
+  max-width: 150px;
+  height: 20px;
+  /* 設定摺疊時的寬度 */
+}
+
+.expanded {
+  max-width: 150px;
+  height: auto;
+  /* 設定展開時的寬度，可以根據需要調整 */
+}
 
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
